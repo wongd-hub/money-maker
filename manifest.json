@@ -1,0 +1,17 @@
+{
+  "name": "Auto Timesheet Extension",
+  "description": "Captures a screenshot of your timesheet and sends via email",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "tabs",
+    "activeTab"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Capture Timesheet"
+  },
+  "background": {
+    "service_worker": "service_worker.js"
+  }
+}
