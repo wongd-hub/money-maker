@@ -1,24 +1,36 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 10px;
-    background: #f8f8f8;
+html, body {
+    /* Force the popup to be 400px wide */
+    width: 400px;
+    margin: 0;
+    padding: 16px;
+    font-family: sans-serif;
   }
   
-  h1 {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  button {
-    background: #007BFF;
-    color: white;
+/* Gradient text for header */
+.gradient-header {
+    font-size: 2.5em;
+    font-weight: bold;
+    /* The gradient is used as background; text will show the gradient through */
+    background: linear-gradient(to right, rgb(249, 168, 212), rgb(216, 180, 254), rgb(129, 140, 248));
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 16px;
+}
+
+/* Rounded, gradient button */
+.gradient-button {
+    background: linear-gradient(to right, rgb(249, 168, 212), rgb(216, 180, 254), rgb(129, 140, 248));
     border: none;
-    padding: 8px 12px;
+    border-radius: 6px;    /* rounded corners */
+    color: #fff;           /* text color */
+    font-weight: bold;
+    padding: 10px 16px;
     cursor: pointer;
     font-size: 14px;
-  }
-  
-  button:hover {
-    background: #0056b3;
-  }
-  
+    /* Smooth transition for hover */
+    transition: opacity 0.3s ease;
+}
+
+.gradient-button:hover {
+    opacity: 0.9; /* slight fade on hover */
+}
