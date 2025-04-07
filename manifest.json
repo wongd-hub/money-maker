@@ -10,11 +10,12 @@
     "identity",
     "tabs",
     "activeTab",
-    "scripting"
+    "scripting",
+    "storage"
   ],
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "Capture Timesheet"
+    "default_title": "Auto-Timesheet Emailer Settings"
   },
   "background": {
     "service_worker": "service_worker.js",
