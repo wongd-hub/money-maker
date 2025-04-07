@@ -2,17 +2,28 @@
   "name": "Auto Timesheet Extension",
   "description": "Captures a screenshot of your timesheet and sends via email",
   "version": "1.0",
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "manifest_version": 3,
   "permissions": [
     "identity",
     "tabs",
-    "activeTab"
+    "activeTab",
+    "scripting"
   ],
   "action": {
     "default_popup": "popup/popup.html",
     "default_title": "Capture Timesheet"
   },
   "background": {
-    "service_worker": "service_worker.js"
-  }
+    "service_worker": "service_worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.hays.com.au/HaysOnline/TSShow.aspx*"],
+      "js": ["scripts/content_script.js"]
+    }
+  ]
 }
