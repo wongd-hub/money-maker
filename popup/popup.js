@@ -1,23 +1,33 @@
-import { authenticateAndGetToken } from '../scripts/auth.js';
-import { buildMimeMessage, sendGmailMessage } from '../scripts/gmail.js';
-import { captureScreenshot } from '../scripts/screenshot.js';
+document.addEventListener('DOMContentLoaded', () => {
 
-document.getElementById('captureBtn').addEventListener('click', async () => {
-  try {
-    // 1) Capture screenshot from background
-    const screenshot = await captureScreenshot(); // or do runtime.sendMessage to background
-    // 2) Get OAuth token
-    const token = await authenticateAndGetToken(true);
-    // 3) Build your MIME (with the base64 screenshot)
-    const base64Image = screenshot.replace(/^data:image\/jpeg;base64,/, ''); // if JPEG
-    const rawMime = buildMimeMessage('darrenwongy@gmail.com', 'Test email', 'Body text', base64Image);
+  const emailSubjectInput = document.getElementById('emailSubject');
+  const emailRecipientInput = document.getElementById('emailRecipient');
+  const emailBodyInput = document.getElementById('emailBody');
+  const saveBtn = document.getElementById('saveBtn');
 
-    // 4) Send the email
-    const result = await sendGmailMessage(token, rawMime);
-    console.log('Email sent, result:', result);
-    alert('Email sent successfully!');
-  } catch (err) {
-    console.error(err);
-    alert(`Error: ${err.message}`);
-  }
+  // 1) Load existing settings
+  chrome.storage.sync.get(
+    ['emailSubject', 'emailRecipient', 'emailBody'],
+    (data) => {
+      if (data.emailSubject) emailSubjectInput.value = data.emailSubject;
+      if (data.emailRecipient) emailRecipientInput.value = data.emailRecipient;
+      if (data.emailBody) emailBodyInput.value = data.emailBody;
+    }
+  );
+
+  // 2) Save them when "Save" is clicked
+  saveBtn.addEventListener('click', () => {
+    const emailSubject = emailSubjectInput.value.trim();
+    const emailRecipient = emailRecipientInput.value.trim();
+    const emailBody = emailBodyInput.value;
+
+    chrome.storage.sync.set(
+      { emailSubject, emailRecipient, emailBody },
+      () => {
+        // Confirmation (in a popup, a quick visual is enough)
+        alert('Settings saved!');
+      }
+    );
+  });
+  
 });
