@@ -6,6 +6,8 @@ const GMAIL_SEND_SCOPE = 'https://www.googleapis.com/auth/gmail.send';
 
 async function authenticateAndGetToken(interactive = true) {
   return new Promise((resolve, reject) => {
+    console.log(' └─ Beginning authentication and token retrieval');
+
     // 1) Chrome auto-generates a redirect URI for your extension.
     // Typically: https://<EXTENSION_ID>.chromiumapp.org/...
     const redirectUri = chrome.identity.getRedirectURL();

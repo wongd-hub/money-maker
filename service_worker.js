@@ -1,27 +1,38 @@
+import { authenticateAndGetToken } from './scripts/auth.js';
+import { buildMimeMessage, sendGmailMessage } from './scripts/gmail.js';
+import { captureScreenshot } from './scripts/screenshot.js';
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
-  if (request.action === 'capture_screenshot') {
+  if (request.action === 'capture_and_email') {
+
+    console.log('Beginning capture and email process');
 
     // Perform async logic - capture screenshot of active tab
     (async () => {
+
       try {
 
-        // Get current tab
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        if (!tab) {
-          throw new Error('No active tab');
-        }
+        // 1) Capture screenshot from background
+        const screenshot = await captureScreenshot();
+        
+        // 2) Get OAuth token
+        const token = await authenticateAndGetToken(true);
 
-        // Grab image as base64 string and send back to popup
-        const imageUri = await chrome.tabs.captureVisibleTab(tab.windowId, { format: 'jpeg' });
-        sendResponse({ screenshot: imageUri });
+        // 3) Build your MIME (with the base64 screenshot)
+        const target_email = 'darrenwongy@gmail.com';
+        const base64Image = screenshot.replace(/^data:image\/jpeg;base64,/, ''); // if JPEG
+        const rawMime = buildMimeMessage(target_email, 'DW | Timesheet', 'Hi team, please find my timesheet attached to this email.', base64Image);
+    
+        // 4) Send the email
+        const result = await sendGmailMessage(token, rawMime);
+        console.log(' └─ Email sent!');
 
-      } catch (error) {
+        sendResponse({ success: true, result });
 
-        // If error, log out to console
-        console.error(error);
-        sendResponse({ error: error.message });
-
+      } catch (err) {
+        console.error(` └─ Error in service worker: ${err.message}`);
+        sendResponse({ error: err.message });
       }
 
     })();

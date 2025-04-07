@@ -1,4 +1,7 @@
 function buildMimeMessage(to, subject, messageText, base64Image) {
+
+  console.log(' └─ Building Mime message contents');
+
   const boundary = 'boundary123';
   const mime =
 `To: ${to}
@@ -29,6 +32,7 @@ ${base64Image}
 }
 
 async function sendGmailMessage(accessToken, rawMime) {
+  console.log(' └─ Sending Gmail');
   const res = await fetch('https://www.googleapis.com/gmail/v1/users/me/messages/send', {
     method: 'POST',
     headers: {
