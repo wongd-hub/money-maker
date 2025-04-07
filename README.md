@@ -7,7 +7,13 @@ This is a Chrome extension developed to do two things upon opening the Print Vie
 1. Take a screenshot of the Print View tab
 2. Authenticate with Gmail using the Gmail API, and send an email with this screenshot as an attachment
 
+## Instructions
+
+- Upon installation, open the extension to set your email settings.
+- Then open a Hays timesheet in Print View and click the header banner to send an email.
+- Authenticate with Gmail and the email will be sent.
+
 ## TODOs:
 
-- Set up the extension popup as an options page
 - Set OAuth to persist so that you don't need to re-log in every time
+- Create icons
