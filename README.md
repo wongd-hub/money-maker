@@ -2,7 +2,11 @@
 
 ![](https://github.com/wongd-hub/money-maker/blob/main/assets/screenie.gif)
 
-This is a Chrome extension developed to do two things upon opening the Print View of a timesheet:
+<p align="middle">
+  <img src="icons/icon128.png" width="16" />
+  &nbsp;&nbsp;This is a Chrome extension developed to do two things upon opening the Print View of a timesheet&nbsp;&nbsp;
+  <img src="icons/icon128.png" width="16" />
+</p>
 
 1. Take a screenshot of the Print View tab
 2. Authenticate with Gmail using the Gmail API, and send an email with this screenshot as an attachment
