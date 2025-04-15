@@ -1,7 +1,7 @@
 {
   "name": "Auto Timesheet Extension",
   "description": "Captures a screenshot of your timesheet and sends via email",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "host_permissions": [
     "<all_urls>"
   ],
