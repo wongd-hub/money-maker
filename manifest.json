@@ -13,9 +13,7 @@
   },
   "permissions": [
     "identity",
-    "tabs",
     "activeTab",
-    "scripting",
     "storage"
   ],
   "action": {
